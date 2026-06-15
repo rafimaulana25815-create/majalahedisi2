@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAJALAH ONLINE EDISI 2 - AI dalam Pendidikan</title>
+    <style>
+        /* --- RESET & DESIGN SYSTEM --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            --primary-bg: #0f172a;    /* Slate gelap premium */
+            --accent-green: #10b981;  /* Emerald tech modern */
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --body-bg: #f8fafc;       /* Off-white soft */
+        }
+
+        body {
+            background-color: var(--body-bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding-bottom: 60px;
+        }
+
+        /* --- COVER & HEADER BANNER --- */
+        .cover-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .tagline {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 50px;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .cover-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .cover-hero p.subtitle {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            font-weight: 400;
+        }
+
+        /* Tim Penyusun Grid Banner */
+        .authors-container {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .authors-title {
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .authors-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+        }
+
+        /* --- RESPONSIVE MAIN LAYOUT --- */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .main-wrapper {
+                grid-template-columns: 2.3fr 1fr;
+            }
+        }
+
+        /* --- KARTU ARTIKEL --- */
+        .article-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+        }
+
+        .category-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .bg-editorial { background-color: #6366f1; }
+        .bg-opini { background-color: #0284c7; }
+        .bg-tech { background-color: #7c3aed; }
+        .bg-feature { background-color: #ea580c; }
+
+        .article-card h2 {
+            font-size: 1.7rem;
+            color: var(--primary-bg);
+            margin-bottom: 16px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .article-card p {
+            color: #334155;
+            margin-bottom: 16px;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        .citation-box {
+            margin-top: 20px;
+            background-color: #f1f5f9;
+            padding: 12px 16px;
+            border-left: 4px solid #cbd5e1;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* --- SIDEBAR WIDGETS --- */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .widget {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .widget h3 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: var(--primary-bg);
+            border-bottom: 2px solid var(--primary-bg);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Daftar Isi Interaktif */
+        .toc-link {
+            display: block;
+            padding: 8px 0;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f1f5f9;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+        .toc-link:hover {
+            color: var(--accent-green);
+            padding-left: 6px;
+        }
+        .toc-link::before {
+            content: '■';
+            color: var(--accent-green);
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+
+        /* BARU: Komponen Profil Penulis Dengan Foto */
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .profile-card:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .profile-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #e2e8f0;
+            background-color: #cbd5e1; /* Background cadangan jika foto belum ada */
+        }
+        .profile-info .name {
+            font-weight: 600;
+            color: var(--primary-bg);
+            font-size: 1rem;
+            line-height: 1.3;
+        }
+        .profile-info .nim {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--primary-bg);
+            color: #94a3b8;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 4px solid var(--accent-green);
+            font-size: 0.9rem;
+        }
+
+        /* --- MOBILE BREAKPOINTS --- */
+        @media (max-width: 768px) {
+            .cover-hero { padding: 40px 15px; }
+            .cover-hero h1 { font-size: 1.9rem; }
+            .cover-hero p.subtitle { font-size: 1.1rem; }
+            .authors-grid { grid-template-columns: 1fr; gap: 8px; }
+            .article-card { padding: 22px; }
+            .article-card h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="cover-hero">
+        <span class="tagline">Media Digital Akademik</span>
+        <h1>MAJALAH ONLINE EDISI 2</h1>
+        <p class="subtitle">Pemanfaatan Artificial Intelligence dan Otomasi Digital dalam Dunia Pendidikan</p>
+        
+        <div class="authors-container">
+            <div class="authors-title">Tim Penyusun &amp; Redaksi</div>
+            <div class="authors-grid">
+                <div>• Candra Risky Syafri Al Haditsi (2503015012)</div>
+                <div>• Nova Fitri Farliani (2503015061)</div>
+                <div>• Rafi Maulana (2503015033)</div>
+                <div>• Ranti Rahadianti Rahayu (2503015030)</div>
+                <div>• Septi Anggraini (2503015095)</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        
+        <main>
+            <article class="article-card" id="editorial">
+                <span class="category-badge bg-editorial">Editorial</span>
+                <h2>Transformasi Pendidikan di Era Artificial Intelligence</h2>
+                <p>Perkembangan teknologi digital yang semakin pesat telah membawa perubahan besar dalam berbagai aspek kehidupan, termasuk dunia pendidikan. Salah satu teknologi yang paling berpengaruh saat ini adalah Artificial Intelligence (AI) serta otomasi digital yang mampu mengubah cara belajar, mengajar, dan mengelola sistem pendidikan secara keseluruhan.</p>
+                <p>Dalam beberapa tahun terakhir, institusi pendidikan mulai mengadopsi berbagai teknologi berbasis AI untuk meningkatkan efektivitas pembelajaran. Penggunaan chatbot akademik, sistem rekomendasi pembelajaran, hingga otomatisasi administrasi kampus menjadi bukti nyata bahwa pendidikan telah memasuki era digital yang lebih maju.</p>
+                <p>Majalah ini hadir sebagai media informasi dan komunikasi akademik digital yang membahas pemanfaatan AI dan otomasi dalam dunia pendidikan.</p>
+                <div class="citation-box">
+                    <strong>Referensi:</strong> UNESCO. (2025). Artificial Intelligence in Education. UNESCO Artificial Intelligence in Education.
+                </div>
+            </article>
+
+            <article class="article-card" id="opini1">
+                <span class="category-badge bg-opini">Artikel Opini 1</span>
+                <h2>Apakah Artificial Intelligence Akan Menggantikan Peran Mahasiswa?</h2>
+                <p>Perkembangan Artificial Intelligence (AI) yang begitu cepat menimbulkan berbagai pertanyaan, salah satunya adalah apakah teknologi ini akan menggantikan peran manusia, khususnya mahasiswa. Namun, AI bukanlah pengganti manusia, melainkan alat bantu yang dapat meningkatkan produktivitas. Mahasiswa tetap memiliki peran penting dalam berpikir kritis dan kreativitas.</p>
+            </article>
+
+            <article class="article-card" id="opini2">
+                <span class="category-badge bg-opini">Artikel Opini 2</span>
+                <h2>Pentingnya Adaptasi Digital di Dunia Pendidikan</h2>
+                <p>Di era digital saat ini, kemampuan beradaptasi terhadap teknologi menjadi keterampilan penting bagi mahasiswa. Dunia pendidikan telah berkembang menjadi ekosistem digital yang dinamis. Mahasiswa dituntut untuk mampu memanfaatkan teknologi secara efektif agar dapat bersaing di era modern.</p>
+            </article>
+
+            <article class="article-card" id="teknologi1">
+                <span class="category-badge bg-tech">Artikel Teknologi 1</span>
+                <h2>Implementasi Chatbot AI dalam Sistem Akademik</h2>
+                <p>Chatbot berbasis Artificial Intelligence merupakan salah satu inovasi teknologi yang mulai banyak diterapkan dalam sistem akademik di berbagai institusi pendidikan. Chatbot adalah program komputer yang dirancang untuk berinteraksi dengan pengguna melalui percakapan secara otomatis. Dalam konteks pendidikan, chatbot dapat digunakan untuk memberikan informasi kepada mahasiswa secara cepat dan efisien.</p>
+                <p>Misalnya, chatbot dapat menjawab pertanyaan terkait jadwal kuliah, informasi nilai, prosedur administrasi, hingga pengumuman akademik. Keunggulan utama chatbot adalah kemampuannya untuk beroperasi selama 24 jam tanpa henti, sehingga mahasiswa dapat mengakses informasi kapan saja. Selain itu, chatbot juga dapat mengurangi beban kerja staf administrasi kampus.</p>
+                <div class="citation-box">
+                    <strong>Referensi:</strong> McGrath, C., Farazouli, A., &amp; Cerratto-Pargman, T. (2025). Generative AI Chatbots in Higher Education: A Review of an Emerging Research Area. Higher Education. Springer.
+                </div>
+            </article>
+
+            <article class="article-card" id="teknologi2">
+                <span class="category-badge bg-tech">Artikel Teknologi 2</span>
+                <h2>Otomasi Digital Menggunakan n8n dalam Manajemen Kampus</h2>
+                <p>Otomasi digital merupakan teknologi yang memungkinkan berbagai proses dilakukan secara otomatis dengan bantuan sistem komputer. Salah satu platform yang dapat digunakan adalah n8n, yaitu tools workflow automation yang fleksibel dan mudah diintegrasikan dengan berbagai sistem. Dalam lingkungan kampus, n8n dapat digunakan untuk mengotomatisasi berbagai proses, seperti pengiriman notifikasi kepada mahasiswa, pengelolaan data akademik, serta integrasi antara berbagai sistem informasi.</p>
+                <p>Sebagai contoh, ketika dosen menginput nilai ke dalam sistem, secara otomatis mahasiswa akan menerima notifikasi melalui email atau aplikasi. Hal ini tentu meningkatkan efisiensi dan mempercepat penyampaian informasi. Selain itu, otomasi digital juga dapat mengurangi kesalahan manusia (human error) serta meningkatkan akurasi data. Dengan demikian, penggunaan otomasi digital menjadi solusi yang efektif dalam mendukung transformasi digital di dunia pendidikan.</p>
+            </article>
+
+            <article class="article-card" id="feature">
+                <span class="category-badge bg-feature">Feature Akademik</span>
+                <h2>Sehari Menjadi Mahasiswa di Era Smart Campus</h2>
+                <p>Perkembangan teknologi telah mengubah cara mahasiswa menjalani kehidupan akademik sehari-hari. Di era smart campus, hampir seluruh aktivitas dilakukan secara digital dan terintegrasi dalam satu sistem. Hari dimulai dengan notifikasi dari aplikasi kampus yang mengingatkan jadwal kuliah. Mahasiswa tidak perlu lagi mencari informasi secara manual karena semua data telah tersedia secara online.</p>
+                <p>Saat memasuki kelas, absensi dilakukan secara otomatis melalui sistem digital. Materi perkuliahan dapat diakses melalui platform e-learning, sehingga mahasiswa dapat belajar secara fleksibel. Selain itu, mahasiswa juga dapat memanfaatkan chatbot untuk mendapatkan informasi akademik dengan cepat. Proses pengumpulan tugas pun dilakukan secara online, sehingga lebih efisien dan ramah lingkungan.</p>
+                <div class="citation-box">
+                    <strong>Referensi:</strong> Yusuf, H., Money, A., &amp; Daylamani-Zad, D. (2025). Pedagogical AI Conversational Agents in Higher Education. Springer.
+                </div>
+            </article>
+        </main>
+
+        <aside class="sidebar">
+            
+            <div class="widget">
+                <h3>Daftar Isi Majalah</h3>
+                <nav>
+                    <a href="#editorial" class="toc-link">Editorial Konten</a>
+                    <a href="#opini1" class="toc-link">Opini 1: AI vs Mahasiswa</a>
+                    <a href="#opini2" class="toc-link">Opini 2: Adaptasi Era Digital</a>
+                    <a href="#teknologi1" class="toc-link">Teknologi 1: Implementasi Chatbot</a>
+                    <a href="#teknologi2" class="toc-link">Teknologi 2: Otomasi Kampus n8n</a>
+                    <a href="#feature" class="toc-link">Feature: Aktivitas Smart Campus</a>
+                </nav>
+            </div>
+
+            <div class="widget">
+                <h3>Profil Anggota Redaksi</h3>
+                
+                <div class="profile-card">
+                    <img class="profile-avatar" src="link_foto_candra.jpg" alt="Foto Candra">
+                    <div class="profile-info">
+                        <div class="name">Candra Risky Syafri Al Haditsi</div>
+                        <div class="nim">NIM. 2503015012</div>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <img class="profile-avatar" src="link_foto_rafi.jpg" alt="Foto Rafi">
+                    <div class="profile-info">
+                        <div class="name">Rafi Maulana</div>
+                        <div class="nim">NIM. 2503015033</div>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <img class="profile-avatar" src="link_foto_ranti.jpg" alt="Foto Ranti">
+                    <div class="profile-info">
+                        <div class="name">Ranti Rahadianti Rahayu</div>
+                        <div class="nim">NIM. 2503015030</div>
+                    </div>
+                                  </div>
+                
+                <div class="profile-card">
+                    <img class="profile-avatar" src="link_foto_ranti.jpg" alt="Foto Ranti">
+                    <div class="profile-info">
+                        <div class="name">Nova Fitri Farliani</div>
+                        <div class="nim">NIM. 2503015061</div>
+                    </div>
+                   </div>
+                
+                <div class="profile-card">
+                    <img class="profile-avatar" src="link_foto_ranti.jpg" alt="Foto Ranti">
+                    <div class="profile-info">
+                        <div class="name">Septi Anggraini </div>
+                        <div class="nim">NIM. 2503015095</div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="widget">
+                <h3>Dokumentasi Project</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); text-align: left;">
+                    Dokumentasi ini mencakup seluruh linimasa pengerjaan proyek majalah online, mulai dari diskusi kelompok intensif, pembagian topik artikel, hingga penyusunan arsitektur website dan kode responsif.
+                </p>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Majalah Online Akademik - Edisi 2. All Rights Reserved.</p>
+        <p style="font-size: 0.8rem; color: #64748b; margin-top: 8px;">Didesain menggunakan komponen avatar profil berbentuk lingkaran.</p>
+    </footer>
+
+</body>
+</html>
